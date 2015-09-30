@@ -1,0 +1,142 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="http://dev.sencha.com/deploy/ext-4.1.0-gpl/resources/css/ext-all.css" />
+<script type="text/javascript" src="http://dev.sencha.com/deploy/ext-4.1.0-gpl/ext-all-dev.js"></script>
+<script type="text/javascript" src="accordion.js"></script>
+<style type="text/css">
+p {
+    margin:5px;
+}
+.menu{
+	background-image:url(package.png);
+}
+.server {
+    background-image:url(server.png);
+}
+.workplace {
+    background-image:url(workplace.png);
+}
+.wrench {
+    background-image:url(wrench.png);
+}
+.application{
+	background-image:url(application.png);
+}
+</style>
+<script type="text/javascript">
+Ext.require(['*']);
+Ext.onReady(function(){	
+
+	var accordionPanel = Ext.create('Ext.panel.Panel', {
+		region: 'west',
+		title: 'Painel',
+		cls:'empty',
+		split: true,
+		width : 185,
+		collapsible: true,		
+		iconCls: 'menu',
+		layout: {
+			type:'accordionx',
+			align: 'stretch'
+		},
+		defaults		: {
+			flex	: 1,
+			fill : false,
+			layout	: 'fit'			
+		},
+		collapseMode:'mini'
+	});
+	
+	var tabPanel = Ext.create('Ext.tab.Panel', {
+		region: 'center',
+		deferredRender: false,
+		activeTab: 0,
+		items: [{						
+			title: 'Portal',
+			html: '<p>Home</p>',
+			autoScroll: true
+		}]
+	})	
+	
+    var store = Ext.create('Ext.data.JsonStore', {
+		autoLoad: true,
+        proxy: {
+            type: 'ajax',
+			noCache: false,
+            url: 'menus.json',
+			actionMethods:'POST'
+        },
+		root: 'items',
+		fields: ['items'],
+		listeners: {
+			load: function(st) {
+				var menuConfig;
+
+				Ext.each(this.data.items[0].data.items, function(index){
+					menuConfig = {
+						title: index['title'],
+						iconCls: index['iconCls'],
+						items: [
+							{
+								root: {
+									children: []
+								},
+								xtype:'treepanel',
+								loadMask: true,
+								border: false,
+								autoScroll: true,
+								rootVisible: false,
+								listeners:{
+									itemclick: function(view, record){
+										var titulo = record.get('id');
+										
+										var novaAba = tabPanel.items.findBy(function( aba ){ return aba.itemId === record.get('id'); });
+										
+										if(!novaAba){
+											novaAba = tabPanel.add({
+												closable: true,
+												itemId: record.get('id'),
+												html: record.get('text'),
+												iconCls: index['iconCls'],
+												title: index['title']
+											});
+										}
+										tabPanel.setActiveTab(novaAba);
+									}
+								}
+							}
+						]
+					};
+					Ext.each(index.items, function (kids, i) {
+						menuConfig.items[0].root.children.push({text: kids['text'], leaf: true, iconCls: kids['iconCls'],id:kids['id']})
+					});
+					accordionPanel.add(menuConfig);					
+				});
+				accordionPanel.doLayout();
+			}
+		}		
+    });
+
+	var viewport = Ext.create('Ext.Viewport', {
+		layout: 'border',
+		renderTo: Ext.getBody(),
+		items: [            
+			Ext.create('Ext.Component', {
+				region: 'north',
+				height: 85,
+				autoEl: {
+					tag: 'div',
+					xtype	: 'box', 
+					html:''
+				}
+			}),			
+			accordionPanel,			
+			tabPanel
+		]
+	});		
+});
+</script>
+</head>
+<body>
+</body>
+</html>

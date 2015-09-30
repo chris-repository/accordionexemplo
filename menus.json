@@ -1,0 +1,93 @@
+{"items": 
+[
+	{
+		"title": "Menu 1",
+		"iconCls": "server",
+		"items": [
+			{
+				"text": "menu 1.1",
+				"id": "menu1",
+				"iconCls": "server"
+			},
+			{
+				"text": "menu 1.2",
+				"id": "menu2",
+				"iconCls": "server"
+			}
+		]
+	},
+	{
+		"title": "Menu 2",
+		"iconCls": "workplace",
+		"items": [
+			{
+				"text": "menu 2.1",
+				"id": "menu3",
+				"iconCls": "workplace"
+			},
+			{
+				"text": "menu 2.2",
+				"id": "menu4",
+				"iconCls": "workplace"
+			},
+			{
+				"text": "menu 2.3",
+				"id": "menu5",
+				"iconCls": "workplace"
+			},
+			{
+				"text": "menu 2.4",
+				"id": "menu6",
+				"iconCls": "workplace"
+			}			
+		]
+	},
+	{
+		"title": "Menu 3",
+		"iconCls": "wrench",
+		"items": [
+			{
+				"text": "menu 3.1",
+				"id": "menu7",
+				"iconCls": "wrench"
+			},
+			{
+				"text": "menu 3.2",
+				"id": "menu8",
+				"iconCls": "wrench"
+			},
+			{
+				"text": "menu 3.3",
+				"id": "menu9",
+				"iconCls": "wrench"
+			},
+			{
+				"text": "menu 3.4",
+				"id": "menu10",
+				"iconCls": "wrench"
+			},
+			{
+				"text": "menu 3.5",
+				"id": "menu11",
+				"iconCls": "wrench"
+			},			
+			{
+				"text": "menu 3.6",
+				"id": "menu12",
+				"iconCls": "wrench"
+			}			
+		]
+	},
+	{
+		"title": "Menu 4",
+		"iconCls": "application",
+		"items": [
+			{
+				"text": "menu 4.1",
+				"id": "menu13",
+				"iconCls": "application"
+			}			
+		]
+	}
+]
+}
